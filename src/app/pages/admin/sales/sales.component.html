@@ -1,0 +1,36 @@
+
+<div class="content container w-75">
+  <h2> Employee Sales Information </h2>
+  <p> Below are the details of total sales and individual sales by employees </p>
+
+  <section class="mt-5">
+     <h3 class="text-center"> Employee Sales Information </h3>
+
+     <div class="row justify-content-center">
+       <div class="card shadow p-5" style="width: 80%">
+
+         <h4 th:text="'Total sales by all employees : Rs. '+${totalSales}"></h4>
+
+         <table class="table table-striped table-hover table-bordered shadow mt-4">
+      <thead>
+        <tr>
+          <th scope="col">Employee Name</th>
+          <th scope="col">Employee Email</th>
+          <th scope="col">Employee Phone No.</th>
+          <th scope="col">Total Sales</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="list : ${salesList}">
+          <td th:text="${list[0]}"></td>
+          <td th:text="${list[1]}"></td>
+          <td th:text="${list[2]}"></td>
+          <td th:text="'Rs. '+${list[3]}"></td>
+        </tr>
+      </tbody>
+    </table>
+
+       </div>
+     </div>
+</section>
+</div>

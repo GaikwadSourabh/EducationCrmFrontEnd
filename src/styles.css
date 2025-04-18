@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+.sidebar {
+	width: 250px;
+	height: 100vh;
+	position: fixed;
+	background-color: rgb(28, 28, 28);
+}
+
+.sidebar .nav-link {
+	color: white;
+}
+
+.sidebar .nav-link:hover {
+	background-color: rgb(54, 54, 54);
+}
+
+.content {
+	width: 100%;
+	margin-left: 250px;
+	padding: 30px;
+}/* You can add global styles to this file, and also import other style files */
