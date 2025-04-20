@@ -15,10 +15,14 @@ import { MyProfileComponent } from './pages/users/my-profile/my-profile.componen
 import { SellCourseComponent } from './pages/users/sell-course/sell-course.component';
 import { InquiryManagementComponent } from './pages/users/inquiry-management/inquiry-management.component';
 import { FollowUpsComponent } from './pages/users/follow-ups/follow-ups.component';
+import { AddCourseComponent } from './pages/admin/add-course/add-course.component';
+import { AddEmployeeComponent } from './pages/admin/add-employee/add-employee.component';
+import { EditCourseComponent } from './pages/admin/edit-course/edit-course.component';
+import { EditEmployeeComponent } from './pages/admin/edit-employee/edit-employee.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
-  
+
   { path: 'adminLogin',component:AdminLoginComponent},
   { path: 'admin-layout',
     component:AdminLayoutComponent,
@@ -28,7 +32,11 @@ export const routes: Routes = [
       { path: 'course-management',component:CourseMamagementComponent},
       { path: 'employee-management',component:EmployeeManagementComponent},
       { path: 'feedback',component:FeedbackComponent},
-      { path: 'sales',component:SalesComponent}
+      { path: 'sales',component:SalesComponent},
+      { path: 'add-course',component:AddCourseComponent},
+      { path: 'add-employee',component:AddEmployeeComponent},
+      { path: 'edit-course/:id',component:EditCourseComponent},
+      { path: 'edit-employee/:id',component:EditEmployeeComponent}
     ]
   },
   { path: 'employeeLogin',component:LoginComponent},

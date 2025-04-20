@@ -1,49 +1,53 @@
 <div class="content container w-75">
-  <h2> Sell Course </h2>
-  <p> Provide proper details to sell course </p>
+  <h2>Sell Course</h2>
+  <p>Provide proper details to sell course</p>
 
   <section class="mt-5">
-    <h3 class="text-center"> Sell Course </h3>
+    <h3 class="text-center">Sell Course</h3>
 
     <div class="row justify-content-center">
       <div class="card shadow p-5" style="width: 40%">
-      <div th:if="${successMsg}" class="mb-3 alert alert-success" role="alert">
-                  <span th:text="${successMsg}"></span>
-    </div>
-    <div th:if="${errorMsg}" class="mb-3 alert alert-danger" role="alert">
-                  <span th:text="${errorMsg}"></span>
-    </div>
 
+        <div *ngIf="successMsg" class="mb-3 alert alert-success" role="alert">
+          {{ successMsg }}
+        </div>
+        <div *ngIf="errorMsg" class="mb-3 alert alert-danger" role="alert">
+          {{ errorMsg }}
+        </div>
 
-        <form th:action="@{/sellCourseForm}" th:object="${order}" method="post">
-                <div class="mb-3">
-                    <label class="form-label">Course Name : </label>
-                    <select class="form-control"  name="courseName" required>
-                      <option selected disabled> Select Course </option>
-                      <option  th:each="courseName: ${courseName}" th:value="${courseName}" th:text="${courseName}"></option>
+        <form (ngSubmit)="onSellCourse()" #sellForm="ngForm">
+          <div class="mb-3">
+            <label class="form-label">Course Name:</label>
+            <select class="form-control" name="course_name" required [(ngModel)]="formData.course_name">
+              <option selected disabled value="">Select Course</option>
+              <option *ngFor="let item of courses" [value]="item.name">{{ item.name }}</option>
+            </select>
+          </div>
 
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Course Amount : </label>
-                    <input type="text" name="courseAmount" class="form-control" required />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">User Email Id : </label>
-                    <input type="email" name="userEmail" class="form-control" required />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Transaction Id : </label>
-                    <input type="text" name="paymentId" class="form-control" required />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Order Id : </label>
-                    <input type="text" name="orderId" th:value="${orderId}" class="form-control" readonly />
-                </div>
-                <button type="submit" class="btn btn-primary">Sell Course</button>
-            </form>
+          <div class="mb-3">
+            <label class="form-label">Course Amount:</label>
+            <input type="number" name="course_amount" class="form-control" required [(ngModel)]="formData.course_amount" />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">User Email Id:</label>
+            <input type="email" name="user_email:" class="form-control" required [(ngModel)]="formData.user_email" />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Transaction Id:</label>
+            <input type="text" name="payment_id" class="form-control" required [(ngModel)]="formData.payment_id" />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Order Id:</label>
+            <input type="text" name="order_id" class="form-control" readonly [(ngModel)]="formData.order_id" />
+          </div>
+
+          <button type="submit" class="btn btn-primary">Sell Course</button>
+        </form>
       </div>
     </div>
   </section>
-
 </div>
+

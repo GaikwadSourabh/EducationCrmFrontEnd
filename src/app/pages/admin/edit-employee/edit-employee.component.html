@@ -1,0 +1,37 @@
+<div class="content  container w-75">
+  <h2> Employee Management</h2>
+  <p> Edit Employee  below... </p>
+
+  <section class="mt-5">
+    <h3 class="text-center"> Edit Course </h3>
+
+    <div class="row justify-content-center">
+      <div class="card shadow p-5" style="width: 50%">
+           <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" method="post">
+                <div class="mb-3">
+                    <label class="form-label">Employee Name : </label>
+                    <input type="text" name="name" formControlName="name" class="form-control" readonly />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Employee Email : </label>
+                    <input type="text" name="email" formControlName="email" class="form-control" readonly />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Employee Password : </label>
+                    <input type="text" formControlName="password" name="password" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Employee Phone No : </label>
+                    <input type="text" name="phoneno" formControlName="phoneno" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Employee City : </label>
+                    <input type="text" name="city" formControlName="city" class="form-control" required />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Edit Employee Details</button>
+            </form>
+      </div>
+    </div>
+  </section>
+</div>
