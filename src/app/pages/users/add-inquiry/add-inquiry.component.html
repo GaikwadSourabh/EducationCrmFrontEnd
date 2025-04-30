@@ -1,0 +1,77 @@
+<div class="content container w-auto">
+  <h2> Add Inquiry </h2>
+  <p> Provide proper details to sell course </p>
+
+  <section class="mt-5">
+    <h3 class="text-center">  Add Inquiry </h3>
+
+    <div class="row justify-content-center">
+      <div class="card shadow p-5" style="width: 40%">
+
+        <div *ngIf="successMsg" class="mb-3 mt-5 alert alert-success" role="alert">
+          {{ successMsg }}
+        </div>
+
+        <div *ngIf="errorMsg" class="mb-3 mt-5 alert alert-danger" role="alert">
+          {{ errorMsg }}
+        </div>
+
+
+        <form (ngSubmit)="submitForm()" method="POST" >
+                      <div class="mb-3">
+                          <label class="form-label">Customer Phone Number:</label>
+                          <input name="phoneno" type="text" class="form-control" [(ngModel)]="formData.phoneno" placeholder="Enter customer phone no." />
+                      </div>
+                      <div class="mb-3">
+                          <label class="form-label">Customer Name:</label>
+                          <input name="name" type="text" class="form-control" [(ngModel)]="formData.name" placeholder="Enter customer name" />
+                      </div>
+                      <div class="mb-3">
+                          <label class="form-label">Interested Course:</label>
+                          <input name="interestedCourse" type="text" class="form-control" [(ngModel)]="formData.interestedCourse" placeholder="Enter interested Course" />
+                      </div>
+                      <div class="mb-3">
+                          <label class="form-label">Discussion:</label>
+                          <textarea name="discussion" class="form-control" [(ngModel)]="formData.discussion" placeholder="Enter discussion"></textarea>
+                      </div>
+                      <div class="mb-3">
+                          <label class="form-label">Inquiry Type:</label>
+                          <select name="inquiryType" class="form-select" [(ngModel)]="formData.inquiryType">
+                              <option value="" selected disabled>Select Inquiry Type</option>
+                              <option value="Call">Call</option>
+                              <option value="Mail">Mail</option>
+                              <option value="Website">Website</option>
+                              <option value="Social Network">Social Network</option>
+                              <option value="Friend Reference">Friend Reference</option>
+                              <option value="Advertisement">Advertisement</option>
+                              <option value="Other">Other</option>
+                          </select>
+                      </div>
+                      <div class="mb-3">
+                          <label class="form-label">Call Type:</label>
+                          <select name="callType" class="form-select" [(ngModel)]="formData.callType">
+                             <option value="" selecte call Type>Select Inquiry Type</option>
+                              <option value="Inbound Call">Inbound Call (customer call to company)</option>
+                              <option value="Outbound Call">Outbound Call (company call to customer)</option>
+                          </select>
+                      </div>
+                      <div class="mb-3">
+                          <label class="form-label">Status:</label>
+                          <select name="status" class="form-select" [(ngModel)]="formData.status"  id="status" (change)="toggleFollowUpDate()">
+                             <option value="" selected disabled>Select Status</option>
+                              <option value="Interested - (follow up)">Interested - (follow up)</option>
+                              <option value="Interested - (closed)">Interested - (closed)</option>
+                              <option value="Not Interested - (closed)">Not Interested - (closed)</option>
+                              <option value="Purchased - (closed)">Purchased - (closed)</option>
+                              <option value="Others - (closed)">Others - (closed)</option>
+                          </select>
+                      </div>
+                       <div class="mb-3" id="followUpDateDiv" *ngIf="showFollowUpDate">
+                          <label class="form-label">Follow Ups Date:</label>
+                          <input name="followUpDate" type="date" [(ngModel)]="formData.followUpDate" class="form-control" placeholder="Enter Follow Ups date" />
+                      </div>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+      </div>
+    </div>
+

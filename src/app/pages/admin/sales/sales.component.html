@@ -9,7 +9,7 @@
      <div class="row justify-content-center">
        <div class="card shadow p-5" style="width: 80%">
 
-         <h4 th:text="'Total sales by all employees : Rs. '+${totalSales}"></h4>
+         <h4>Total sales by all employees : Rs. {{totalSales}}</h4>
 
          <table class="table table-striped table-hover table-bordered shadow mt-4">
       <thead>
@@ -21,11 +21,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr th:each="list : ${salesList}">
-          <td th:text="${list[0]}"></td>
-          <td th:text="${list[1]}"></td>
-          <td th:text="${list[2]}"></td>
-          <td th:text="'Rs. '+${list[3]}"></td>
+        <tr *ngFor="let emp of employee">
+          <td >{{emp.name}}</td>
+          <td >{{emp.email}}</td>
+          <td >{{emp.phoneno}}</td>
+          <td >{{emp.total_sale}}</td>
         </tr>
       </tbody>
     </table>

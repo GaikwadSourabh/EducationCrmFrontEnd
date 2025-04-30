@@ -19,6 +19,8 @@ import { AddCourseComponent } from './pages/admin/add-course/add-course.componen
 import { AddEmployeeComponent } from './pages/admin/add-employee/add-employee.component';
 import { EditCourseComponent } from './pages/admin/edit-course/edit-course.component';
 import { EditEmployeeComponent } from './pages/admin/edit-employee/edit-employee.component';
+import { UsersDetailsComponent } from './pages/admin/users-details/users-details.component';
+import { AddInquiryComponent } from './pages/users/add-inquiry/add-inquiry.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -36,11 +38,11 @@ export const routes: Routes = [
       { path: 'add-course',component:AddCourseComponent},
       { path: 'add-employee',component:AddEmployeeComponent},
       { path: 'edit-course/:id',component:EditCourseComponent},
-      { path: 'edit-employee/:id',component:EditEmployeeComponent}
+      { path: 'edit-employee/:id',component:EditEmployeeComponent},
+      { path: 'user-courseDetails',component:UsersDetailsComponent},
     ]
   },
   { path: 'employeeLogin',component:LoginComponent},
-  { path: 'employeeRegister',component:RegisterComponent},
   { path: 'user-layout',
     component:UserLayoutComponent,
     children:[
@@ -48,6 +50,8 @@ export const routes: Routes = [
       { path: 'sell-course',component:SellCourseComponent},
       { path: 'inquiry-management',component:InquiryManagementComponent},
       { path: 'follow-ups',component:FollowUpsComponent},
+      { path: 'add-inquiry',component:AddInquiryComponent}
+
     ]
   }
 

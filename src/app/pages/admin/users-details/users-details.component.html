@@ -1,0 +1,48 @@
+
+	<div th:replace="~{fragments/admin-sidebar :: frg-admin-sidebar}"></div>
+
+	<div class="content  container-fluid w-75">
+	<div>
+		<h2>User Course</h2>
+		<p>Below is the list of courses purchased by the user</p>
+
+		<section class="mt-5">
+			<h4 >Course purchased by :{{name}}</h4>
+		</section>
+
+		<section class="mt-5">
+			<table
+				class="table table-striped table-hover table-bordered shadow">
+				<thead>
+					<tr>
+						<th scope="col">Course Image</th>
+						<th scope="col">Course Name</th>
+						<th scope="col">Course Amount</th>
+						<th scope="col">Date Of Purchase</th>
+						<th scope="col">Order Id</th>
+						<th scope="col">Payment Id</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let course of courseDetails ">
+						<td><img src="{{'http://localhost:3000/uploads/' + course.image}}" width="150" alt="Course Image" /></td>
+						<td >{{course.course_name}}</td>
+						<td >{{course.course_amount}}</td>
+						<td >{{course.date_of_purchase | date:'dd-MMM-yyyy  hh:mm:ss' }}</td>
+						<td >{{course.order_id}}</td>
+						<td >{{course.payment_id}}</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</section>
+
+	</div>
+
+
+
+
+
+
+
+

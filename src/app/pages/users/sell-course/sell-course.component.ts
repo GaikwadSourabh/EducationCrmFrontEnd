@@ -18,9 +18,12 @@ export class SellCourseComponent implements OnInit
   successMsg = '';
   errorMsg = '';
 
+  emp_email: string | null = null;
+
   constructor(private courseService:CourseService,private sellService:SellService){}
   ngOnInit(): void {
-   this.getCourses()
+    this.emp_email = localStorage.getItem('email');
+    this.getCourses()
 
   }
   getCourses() {
@@ -40,7 +43,7 @@ export class SellCourseComponent implements OnInit
   onSellCourse()
   {
     this.formData.course_amount = Number(this.formData.course_amount);
-    this.sellService.create(this.formData).subscribe((data)=>{
+    this.sellService.create(this.formData, this.emp_email || '').subscribe((data)=>{
       if(data)
       {
         this.successMsg="Course Provide Successfully"

@@ -1,198 +1,120 @@
-<div class="content container w-75">
-  <h2> Inquiry Management </h2>
-  <p> Here you can search and add new inquiry </p>
+<div class="content container w-auto" style="margin-left: 70px;">
+  <h2>Inquiry Management</h2>
+  <p>Here you can search and add new inquiry</p>
 
-  <div th:if="${successMsg}" class="mb-3 mt-5 alert alert-success" role="alert">
-<span th:text="${successMsg}"></span>
-</div>
+  <div *ngIf="successMsg" class="mb-3 mt-5 alert alert-success" role="alert">
+    {{ successMsg }}
+  </div>
 
-<div th:if="${errorMsg}" class="mb-3 mt-5 alert alert-success" role="alert">
-<span th:text="${errorMsg}"></span>
-</div>
+  <div *ngIf="errorMsg" class="mb-3 mt-5 alert alert-danger" role="alert">
+    {{ errorMsg }}
+  </div>
 
   <div class="container my-4" style="background-color: rgb(54, 54, 54);">
-      <div class="navbar p-3">
-          <div class="d-flex align-items-center">
-              <div class="input-group me-2">
-                  <input type="text" class="form-control" placeholder="Search by phone number" id="searchPhoneNumber">
-                  <button class="btn btn-outline-secondary" type="button" onclick="searchInquiry()">
-                      <i class="bi bi-search"></i>
-                  </button>
-              </div>
-              <button id="plusButton" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  <i class="bi bi-plus"></i>
-              </button>
-          </div>
-          <a href="/newInquiry" id="newInquiryButton" class="btn btn-success ms-auto">New Inquiry</a>
+    <div class="navbar p-3">
+      <div class="d-flex align-items-center">
+        <div class="input-group me-2">
+          <input type="text" class="form-control" placeholder="Search by phone number" [(ngModel)]="searchPhoneNumber">
+          <button class="btn btn-outline-secondary" type="button" (click)="searchInquiry()">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+        <button class="btn btn-primary me-2" (click)="openModal()" *ngIf="showPlusButton">
+          <i class="bi bi-plus"></i>
+        </button>
       </div>
+      <a *ngIf="showAddInquiry" routerLink="/user-layout/add-inquiry"  class="btn btn-success ms-auto" >New Inquiry</a>
+    </div>
   </div>
 
-  <div>
-      <h4 id="customerName"> Customer Name : Deepak </h4>
-      <table id="inquiriesTable" class="table table-striped table-hover table-bordered shadow mt-4">
-          <thead>
-              <tr>
-                  <th scope="col">Interested Course</th>
-                  <th scope="col">Discussion</th>
-                  <th scope="col">Inquiry Type</th>
-                  <th scope="col">Call Type</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Inquiry Date / Time</th>
-              </tr>
-          </thead>
-          <tbody id="inquiryTableBody">
-
-          </tbody>
-      </table>
+  <div *ngIf="showCustomerInfo">
+    <h4>Customer Name: {{ customerName }}</h4>
+    <table class="table table-striped table-hover table-bordered shadow mt-4">
+      <thead>
+        <tr>
+          <th>Interested Course</th>
+          <th>Discussion</th>
+          <th>Inquiry Type</th>
+          <th>Call Type</th>
+          <th>Status</th>
+          <th>Inquiry Date / Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let inquiry of inquiries">
+          <td>{{ inquiry.interestedCourse }}</td>
+          <td>{{ inquiry.discussion }}</td>
+          <td>{{ inquiry.inquiryType }}</td>
+          <td>{{ inquiry.callType }}</td>
+          <td>{{ inquiry.status }}</td>
+          <td>{{ inquiry.dateOfInquiry | date: 'dd-MM-yyyy  hh:mm:ss'  }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Continue Inquiry</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                  <!-- form or content for the old inquiry continuation -->
-                  <form th:action="@{/submitInquiryForm}" method="POST" th:object="${inquiry}">
-                      <div class="mb-3">
-                          <label class="form-label">Customer Phone Number:</label>
-                          <input type="text" name="phoneno" id="modalCustomerPhno" class="form-control" placeholder="Enter customer phone no." required />
-                      </div>
-                      <div class="mb-3">
-                          <label class="form-label">Customer Name:</label>
-                          <input type="text" name="name" id="modalCustomerName" class="form-control" placeholder="Enter customer name" required />
-                      </div>
-                      <div class="mb-3">
-                          <label class="form-label">Interested Course:</label>
-                          <input type="text" name="interestedCourse" class="form-control" placeholder="Enter interested Course" required />
-                      </div>
-                      <div class="mb-3">
-                          <label class="form-label">Discussion:</label>
-                          <textarea name="discussion" class="form-control" placeholder="Enter discussion" required></textarea>
-                      </div>
-                      <div class="mb-3">
-                          <label class="form-label">Inquiry Type:</label>
-                          <select name="inquiryType" class="form-select" required>
-                            <option value="" selected disabled>Select Inquiry Type</option>
-                              <option value="Call">Call</option>
-                              <option value="Mail">Mail</option>
-                              <option value="Website">Website</option>
-                              <option value="Social Network">Social Network</option>
-                              <option value="Friend Reference">Friend Reference</option>
-                              <option value="Advertisement">Advertisement</option>
-                              <option value="Other">Other</option>
-                          </select>
-                      </div>
-                      <div class="mb-3">
-                          <label class="form-label">Call Type:</label>
-                          <select name="callType" class="form-select" required>
-                              <option value="" selected disabled>Select Call Type</option>
-                              <option value="Inbound Call">Inbound Call (customer call to company)</option>
-                              <option value="Outbound Call">Outbound Call (company call to customer)</option>
-                          </select>
-                      </div>
-                      <div class="mb-3">
-                          <label class="form-label">Status:</label>
-                          <select name="status" id="status" class="form-select" onchange="toggleFollowUpDate()" required>
-                              <option value="" selected disabled>Select Status</option>
-                              <option value="Interested - (follow up)">Interested - (follow up)</option>
-                              <option value="Interested - (closed)">Interested - (closed)</option>
-                              <option value="Not Interested - (closed)">Not Interested - (closed)</option>
-                              <option value="Purchased - (closed)">Purchased - (closed)</option>
-                              <option value="Others - (closed)">Others - (closed)</option>
-                          </select>
-                      </div>
-                      <div class="mb-3" id="followUpDateDiv">
-                  <label class="form-label">Follow Up Date:</label>
-                  <input name="followUpDate" type="date" class="form-control" placeholder="Enter follow up date" />
-              </div>
-                      <button type="submit" class="btn btn-primary">Add Inquiry</button>
-                  </form>
-              </div>
-          </div>
-      </div>
-  </div>
+
+   <ng-template #inquiryModal>
+    <div class="modal-header">
+      <h5 class="modal-title">Continue Inquiry</h5>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modalRef?.close()"></button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="submitForm()" #inquiryForm="ngForm">
+        <div class="mb-3">
+          <label class="form-label">Customer Phone Number:</label>
+          <input type="text" name="phoneno" class="form-control" [(ngModel)]="formData.phoneno" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Customer Name:</label>
+          <input type="text" name="name" class="form-control" [(ngModel)]="formData.name" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Interested Course:</label>
+          <input type="text" name="interestedCourse" class="form-control" [(ngModel)]="formData.interestedCourse" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Discussion:</label>
+          <textarea name="discussion" class="form-control" [(ngModel)]="formData.discussion" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Inquiry Type:</label>
+          <select name="inquiryType" class="form-select" [(ngModel)]="formData.inquiryType" required>
+            <option value="" disabled>Select Inquiry Type</option>
+            <option>Call</option>
+            <option>Mail</option>
+            <option>Website</option>
+            <option>Social Network</option>
+            <option>Friend Reference</option>
+            <option>Advertisement</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Call Type:</label>
+          <select name="callType" class="form-select" [(ngModel)]="formData.callType" required>
+            <option value="" disabled>Select Call Type</option>
+            <option>Inbound Call</option>
+            <option>Outbound Call</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Status:</label>
+          <select name="status" class="form-select" [(ngModel)]="formData.status" (change)="toggleFollowUpDate()" required>
+            <option value="" disabled>Select Status</option>
+            <option>Interested - (follow up)</option>
+            <option>Interested - (closed)</option>
+            <option>Not Interested - (closed)</option>
+            <option>Purchased - (closed)</option>
+            <option>Others - (closed)</option>
+          </select>
+        </div>
+        <div class="mb-3" *ngIf="showFollowUpDate">
+          <label class="form-label">Follow Up Date:</label>
+          <input type="date" name="followUpDate" class="form-control" [(ngModel)]="formData.followUpDate" />
+        </div>
+        <button type="submit" class="btn btn-primary">Add Inquiry</button>
+      </form>
+    </div>
+  </ng-template>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script>
-function searchInquiry()
-{
-  var searchPhoneNumber = $("#searchPhoneNumber").val();
-  //alert(searchPhoneNumber);
-
-  $.ajax({
-    url: "/api/searchInquiries",
-    type: "GET",
-    data: {phoneNumber : searchPhoneNumber},
-    success: function(response){
-      //alert(response);
-
-      $("#inquiryTableBody").empty();
-
-      if(response.length > 0)
-      {
-        $.each(response, function(index, inquiry){
-          //alert(`${inquiry.discussion}`);
-
-          var row = `<tr>
-                           <td> ${inquiry.interestedCourse} </td>
-                           <td> ${inquiry.discussion} </td>
-                           <td> ${inquiry.inquiryType} </td>
-                           <td> ${inquiry.callType} </td>
-                           <td> ${inquiry.status} </td>
-                           <td> ${inquiry.dateOfInquiry}, ${inquiry.timeOfInquiry} </td>
-                       </tr>`;
-
-            $("#inquiryTableBody").append(row);
-        });
-
-        $("#inquiriesTable").show();
-        $("#plusButton").show();
-
-        var customerName = response[0].name;
-        $("#customerName").text("Customer Name : "+customerName).show();
-
-        $("#newInquiryButton").hide();
-
-        $("#modalCustomerPhno").val(searchPhoneNumber);
-        $("#modalCustomerName").val(customerName);
-      }
-      else
-      {
-        //alert("No data found");
-        $("#customerName").text("No customer found").show();
-
-        $("#inquiriesTable").hide();
-        $("#plusButton").hide();
-
-        $("#newInquiryButton").show();
-
-        $("#modalCustomerPhno").val("");
-        $("#modalCustomerName").val("");
-      }
-    },
-    error: function(error){
-      alert(error);
-    }
-  });
-}
-
-function toggleFollowUpDate()
-{
-  var status = document.getElementById("status").value;
-  var followUpDateDiv = document.getElementById("followUpDateDiv");
-
-  if(status === "Interested - (follow up)")
-  {
-    followUpDateDiv.style.display = "block";
-  }
-  else
-  {
-    followUpDateDiv.style.display = "none";
-  }
-}
-</script>

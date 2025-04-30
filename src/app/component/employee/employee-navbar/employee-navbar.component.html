@@ -1,8 +1,7 @@
 
-
-<div class="sidebar">
-  <nav class="nav flex-column mt-5">
-      <h5 class="text-white ms-3 mb-4">Welcome Employee</h5>
+<div class="sidebar" style="min-height: 100vh; overflow-x: hidden;">
+  <nav class="nav flex-column mt-5" style="width: 250px; min-height: 100vh; position: fixed;">
+      <h5 class="text-white ms-3 mb-4">Welcome  {{name}}</h5>
       <a routerLink="/user-layout/my-profile" routerLinkActive="active"   class="nav-link">
         <i class="bi bi-house-fill"></i>
           <span class="ms-2">My Profile</span>
@@ -20,7 +19,7 @@
           <span class="ms-2">  Follow Ups </span>
       </a>
 
-      <a routerLink="/user-layout/my-profile" class="nav-link">
+      <a (click)="logout()" class="nav-link">
           <i class="bi bi-box-arrow-in-right"></i>
           <span class="ms-2"> Logout </span>
       </a>

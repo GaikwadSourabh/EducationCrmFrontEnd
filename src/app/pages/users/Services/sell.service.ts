@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Purchase } from '../modules/purchase.modules';
 import { Observable } from 'rxjs';
@@ -12,9 +12,10 @@ export class SellService {
 
   constructor(private http:HttpClient) { }
 
-  create(data:Purchase):Observable<Purchase>
+  create(data:Purchase,emp_email:string):Observable<Purchase>
   {
-   return this.http.post<Purchase>(this.API_URL,data)
+    const params=new HttpParams().set('emp_email',emp_email)
+   return this.http.post<Purchase>(this.API_URL,data,{params})
   }
 
   findAll():Observable<Purchase[]>
@@ -35,5 +36,11 @@ export class SellService {
   delete(id:string):Observable<Purchase>
   {
     return this.http.delete<Purchase>(`${this.API_URL}/${id}`)
+  }
+
+  getUsersEmailDetails(email:string):Observable<any[]>
+  {
+    const params= new HttpParams().set('email',email)
+    return this.http.get<any[]>(`${this.API_URL}/details`,{params})
   }
 }
