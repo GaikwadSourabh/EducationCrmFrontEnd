@@ -19,6 +19,6 @@ export class EmployeeNavbarComponent implements OnInit
  logout()
  {
   localStorage.clear();
-  this.router.navigate(['/']);
+  this.router.navigate(['/employeeLogin']);
  }
 }

@@ -80,18 +80,54 @@ export class DashboardComponent implements AfterViewInit, OnInit{
     const Plotly = (await import('plotly.js-dist-min')) as unknown as typeof import('plotly.js');
 
     const data: Partial<Plotly.PlotData>[] = [{
-      x: this.date11,
-      y: this.totalAmount11,
-      type: 'bar'
+      x: this.date11, // e.g., ["Apr 26", "Apr 29", "May 2", ...]
+      y: this.totalAmount11, // e.g., [2400, 2000, 3000, ...]
+      type: 'bar',
+      marker: {
+        color: 'steelblue',
+      }
     }];
 
-    const layout = {};
+    const layout: Partial<Plotly.Layout> = {
+      title: {
+        text: "Today's Sale Graph",
+        font: {
+          size: 22,
+          color: '#1e3a8a',
+        },
+        xref: 'paper',
+        x: 0.5,
+        xanchor: 'center',
+      },
+      xaxis: {
+        title: 'Date',
+        tickangle: -30,
+        tickfont: {
+          size: 12
+        }
+      },
+      yaxis: {
+        title: 'Amount',
+        tickformat: ',d',
+      },
+      margin: {
+        t: 50,
+        l: 50,
+        r: 30,
+        b: 80,
+      },
+      height: 400,
+      paper_bgcolor: 'white',
+      plot_bgcolor: 'white'
+    };
 
     const config = {
-      displayModeBar: false
+      displayModeBar: false,
+      responsive: true
     };
 
     Plotly.newPlot('myPlot', data, layout, config);
+  
   }
 
   graphTwo() {

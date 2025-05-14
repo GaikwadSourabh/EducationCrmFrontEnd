@@ -25,7 +25,7 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let course of courseDetails ">
-						<td><img src="{{'http://localhost:3000/uploads/' + course.image}}" width="150" alt="Course Image" /></td>
+						<td><img src="{{'http://localhost:3000/uploads/'+course.image}}" width="150" alt="Course Image" /></td>
 						<td >{{course.course_name}}</td>
 						<td >{{course.course_amount}}</td>
 						<td >{{course.date_of_purchase | date:'dd-MMM-yyyy  hh:mm:ss' }}</td>

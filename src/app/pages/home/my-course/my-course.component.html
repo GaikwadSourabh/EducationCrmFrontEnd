@@ -1,0 +1,94 @@
+
+<header>
+
+    <nav  class="navbar navbar-expand-lg bg-primary">
+      <div class="container">
+          <a class="navbar-brand" href="index.html">
+              <img src="assets/logo.png" alt="Smart Programming Logo" width="60" />
+              <span class="h3 text-white">Smart Programming</span>
+          </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active text-white" aria-current="page" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active text-white" aria-current="page" href="#">My-Course</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active text-white" aria-current="page" routerLink="/feedback" routerLinkActive="active">Feedback</a>
+            </li>
+            <li class="nav-item">
+              <p class="nav-link active text-dark	" aria-current="page">Hello:  {{name}}</p>
+            </li>
+          </ul>
+          <button class="btn btn-danger" (click)="logout()">Logout</button>
+        </div>
+      </div>
+    </nav>
+
+</header>
+
+<main class="container-fluid">
+<section>
+  <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="assets/banner.jpg" class="d-block w-100" alt="first banner">
+        </div>
+        <div class="carousel-item">
+          <img src="assets/banner.jpg" class="d-block w-100" alt="second banner">
+        </div>
+        <div class="carousel-item">
+          <img src="assets/banner.jpg" class="d-block w-100" alt="thired banner">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+</section>
+
+<section class="container py-5 bg-light">
+  <h3 class="text-center mb-4"> My Courses </h3>
+  <div class="row g-4">
+      <div *ngFor="let course of courses" class="col-lg-3 col-md-6">
+      <div class="card" style="width: 18rem;">
+      <img src="{{'http://localhost:3000/uploads/' + course.image}}" class="card-img-top" alt="core java">
+      <div class="card-body">
+        <h5 class="card-title">{{course.course_name}}</h5>
+        <p class="card-text">{{course.description}}</p>
+          <p><strong>Price :</strong><span class="bg-inf0 p-1"> Rs. {{course.course_amount}}</span></p>
+          <button class="btn btn-primary">
+              Start Course
+           </button>
+      </div>
+      <div class="card-footer text-body-secondary">
+        <p>Purchaserd On:</p>
+          {{course.date_of_purchase | date:'dd-MMM-yyyy'}}
+      </div>
+      </div>
+      </div>
+    </div>
+</section>
+</main>
+
+<footer class="footer bg-dark py-3 text-center">
+  <div class="container">
+      <span class="text-white"> Copyright Smart Programming </span>
+      <div class="py-3">
+          <a href="#" class="ms-3 text-decoration-none"> Privacy Policy </a>
+          <a href="#" class="ms-3 text-decoration-none"> Terms of Services </a>
+          <a href="#" class="ms-3 text-decoration-none"> Cancellation / Refund Policy </a>
+      </div>
+  </div>
+</footer>
+

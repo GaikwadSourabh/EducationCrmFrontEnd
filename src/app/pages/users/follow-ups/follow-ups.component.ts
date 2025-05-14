@@ -20,7 +20,6 @@ export class FollowUpsComponent implements OnInit{
   followUps: any[] = [];
   selectedPhone: string = '';
   inquiries: any[] = [];
-  customerName: string = '';
   showInquirySection = false;
   showModal = false;
   showFollowUpDate = false;
@@ -56,7 +55,6 @@ onDateChange()
       if (this.followUps.length > 0) {
         this.formData.name = data.length > 0 ? data[0].name : '';
         this.formData.phoneno = data.length > 0 ? data[0].phoneno:''
-        console.log("name is",this.customerName)
       }
 
     });
@@ -73,8 +71,9 @@ getDiscussions(phoneno:string)
 {
    this.inquiryService.searchInquiries(phoneno).subscribe((data:any[])=>{
      this.inquiries=data;
+     this.formData.name = data.length > 0 ? data[0].name : '';
+     console.log("name is", this.formData.name)
      this.showInquirySection=true;
-     console.log(this.inquiries)
    })
 }
 

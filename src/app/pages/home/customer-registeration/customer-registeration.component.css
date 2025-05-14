@@ -1,0 +1,38 @@
+body {
+  background: #f8fafc;
+}
+
+.card {
+  width:200px;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.card-header {
+  border-radius: 18px 18px 0 0;
+  background: linear-gradient(90deg, #007bff 0%, #0056b3 100%);
+}
+
+.form-floating > .form-control {
+  border-radius: 8px;
+}
+
+.btn-primary {
+  font-weight: bold;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(0,123,255,0.12);
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: #0056b3;
+}
+
+.form-bg {
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15); /* Increased shadow */
+  padding: 32px 24px;
+}

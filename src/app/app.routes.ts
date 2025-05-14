@@ -21,11 +21,20 @@ import { EditCourseComponent } from './pages/admin/edit-course/edit-course.compo
 import { EditEmployeeComponent } from './pages/admin/edit-employee/edit-employee.component';
 import { UsersDetailsComponent } from './pages/admin/users-details/users-details.component';
 import { AddInquiryComponent } from './pages/users/add-inquiry/add-inquiry.component';
+import { CustomerLoginComponent } from './pages/home/customer-login/customer-login.component';
+import { CustomerRegisterationComponent } from './pages/home/customer-registeration/customer-registeration.component';
+import { FeedbackPageComponent } from './pages/home/feedback/feedback.component';
+import { MyCourseComponent } from './pages/home/my-course/my-course.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
 
+  {path:'customerLogin',component:CustomerLoginComponent},
+  {path:'customerRegistration',component:CustomerRegisterationComponent},
+
   { path: 'adminLogin',component:AdminLoginComponent},
+  { path: 'my-course',component:MyCourseComponent},
+  
   { path: 'admin-layout',
     component:AdminLayoutComponent,
     children:[
@@ -43,6 +52,7 @@ export const routes: Routes = [
     ]
   },
   { path: 'employeeLogin',component:LoginComponent},
+  { path:'feedback',component:FeedbackPageComponent},
   { path: 'user-layout',
     component:UserLayoutComponent,
     children:[

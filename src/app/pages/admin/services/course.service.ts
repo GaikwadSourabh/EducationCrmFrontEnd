@@ -41,4 +41,8 @@ export class CourseService {
   {
      return this.http.get<Course[]>(`${this.baseUrl}/all`);
   }
+  getImageByName(name:string):Observable<Course>
+  {
+    return this.http.get<Course>(`${this.baseUrl}/findbyname/${name}`)
+  }
 }

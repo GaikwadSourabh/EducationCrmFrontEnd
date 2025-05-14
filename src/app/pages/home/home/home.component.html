@@ -1,7 +1,6 @@
 
-    <!--Header Start-->
     <header>
-        <nav class="navbar navbar-expand-lg bg-primary">
+        <nav *ngIf="!email" class="navbar navbar-expand-lg bg-primary">
             <div class="container">
                 <a class="navbar-brand" href="index.html">
                     <img src="assets/logo.png" alt="Smart Programming Logo" width="60" />
@@ -30,17 +29,45 @@
                   </li>
 
                 </ul>
-                <a href="login.html" class="btn btn-info ms-5">Login</a>
-                <a href="register.html" class="btn btn-info ms-4">Register</a>
+                <a  routerLink="/customerLogin" routerLinkActive="active" class="btn btn-info ms-5">Login</a>
+                <a routerLink="/customerRegistration" routerLinkActive="active" class="btn btn-info ms-4">Register</a>
               </div>
             </div>
           </nav>
-    </header>
-     <!--Header Start-->
 
-      <!--Main content start-->
+          <nav *ngIf="email" class="navbar navbar-expand-lg bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <img src="assets/logo.png" alt="Smart Programming Logo" width="60" />
+                    <span class="h3 text-white">Smart Programming</span>
+                </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active text-white" aria-current="page" href="index.html">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active text-white" aria-current="page" routerLink="/my-course" routerLinkActive="active">My-Course</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active text-white" aria-current="page" routerLink="/feedback" routerLinkActive="active">Feedback</a>
+                  </li>
+                <li class="nav-item">
+                  <p class="nav-link active text-dark	" aria-current="page">Hello:  {{name}}</p>
+                </li>
+              </ul>
+
+                <button class="btn btn-danger" (click)="logout()">Logout</button>
+              </div>
+            </div>
+          </nav>
+
+    </header>
+
     <main class="container-fluid">
-         <!--Banner Images start-->
       <section>
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -64,126 +91,42 @@
             </button>
           </div>
       </section>
-      <!--Banner Images end-->
 
-      <!--course section start-->
       <section class="container py-5 bg-light">
         <h3 class="text-center mb-4"> Our Courses </h3>
         <div class="row g-4">
-         <!--first car start-->
-            <div class="col-lg-3 col-md-6">
+            <div *ngFor="let course of courses" class="col-lg-3 col-md-6">
             <div class="card" style="width: 18rem;">
-            <img src="assets/corejava.jpg" class="card-img-top" alt="core java">
+            <img src="{{'http://localhost:3000/uploads/' + course.image}}" class="card-img-top" alt="core java">
             <div class="card-body">
-              <h5 class="card-title">Core Java</h5>
-              <p class="card-text">This course contains core java concepts, interview preparation, case studies and 5
-                projects.</p>
-                <p><strong>Price :</strong><del>Rs.5999</del><span class="bg-inf0 p-1">Rs.1999</span></p>
-              <a href="#" class="btn btn-primary">Buy</a>
+              <h5 class="card-title">{{course.name}}</h5>
+              <p class="card-text">{{course.description}}</p>
+                <p><strong>Price :</strong><del>Rs. {{course.originalPrice}}</del><span class="bg-inf0 p-1"> Rs. {{course.discountPrice}}</span></p>
+                   <div *ngIf="!email">
+              <a routerLink="/customerLogin" routerLinkActive="active" class="btn btn-outline-primary">Login to Buy</a>
             </div>
+            <div *ngIf="email">
+              <div *ngIf="purchasedCourseNameList.includes(course.name)">
+                <span class="text-success">Course already purchased</span>
+              </div>
+              <div *ngIf="!purchasedCourseNameList.includes(course.name)">
+                <button class="btn btn-primary"
+                  (click)="purchaseCourse(course)">
+                  Buy
+                </button>
+              </div>
+            </div>
+          </div>
             <div class="card-footer text-body-secondary">
-                Updated : 2 days ago
+                {{course.updatedOn | date:'dd-MMM-yyyy'}}
             </div>
-            </div>
-          </div>
-     <!--first car end-->
-     <!--second car start-->
-          <div class="col-lg-3 col-md-6">
-            <div class="card" style="width: 18rem;">
-            <img src="assets/corejava.jpg" class="card-img-top" alt="core java">
-            <div class="card-body">
-              <h5 class="card-title">Core Java</h5>
-              <p class="card-text">This course contains core java concepts, interview preparation, case studies and 5
-                projects.</p>
-                <p><strong>Price :</strong><del>Rs.5999</del><span class="bg-inf0 p-1">Rs.1999</span></p>
-              <a href="#" class="btn btn-primary">Buy</a>
-            </div>
-            <div class="card-footer text-body-secondary">
-                Updated : 2 days ago
             </div>
             </div>
           </div>
-           <!--second car end-->
-     <!--third car start-->
-          <div class="col-lg-3 col-md-6">
-            <div class="card" style="width: 18rem;">
-            <img src="assets/corejava.jpg" class="card-img-top" alt="core java">
-            <div class="card-body">
-              <h5 class="card-title">Core Java</h5>
-              <p class="card-text">This course contains core java concepts, interview preparation, case studies and 5
-                projects.</p>
-                <p><strong>Price :</strong><del>Rs.5999</del><span class="bg-inf0 p-1">Rs.1999</span></p>
-              <a href="#" class="btn btn-primary">Buy</a>
-            </div>
-            <div class="card-footer text-body-secondary">
-                Updated : 2 days ago
-            </div>
-            </div>
-          </div>
-       <!--third car end-->
-     <!--forth car start-->
-          <div class="col-lg-3 col-md-6">
-            <div class="card" style="width: 18rem;">
-            <img src="assets/corejava.jpg" class="card-img-top" alt="core java">
-            <div class="card-body">
-              <h5 class="card-title">Core Java</h5>
-              <p class="card-text">This course contains core java concepts, interview preparation, case studies and 5
-                projects.</p>
-                <p><strong>Price :</strong><del>Rs.5999</del><span class="bg-inf0 p-1">Rs.1999</span></p>
-              <a href="#" class="btn btn-primary">Buy</a>
-            </div>
-            <div class="card-footer text-body-secondary">
-                Updated : 2 days ago
-            </div>
-            </div>
-          </div>
-        <!--fourth car end-->
-     <!--five car start-->
-          <div class="col-lg-3 col-md-6">
-            <div class="card" style="width: 18rem;">
-            <img src="assets/corejava.jpg" class="card-img-top" alt="core java">
-            <div class="card-body">
-              <h5 class="card-title">Core Java</h5>
-              <p class="card-text">This course contains core java concepts, interview preparation, case studies and 5
-                projects.</p>
-                <p><strong>Price :</strong><del>Rs.5999</del><span class="bg-inf0 p-1">Rs.1999</span></p>
-              <a href="#" class="btn btn-primary">Buy</a>
-            </div>
-            <div class="card-footer text-body-secondary">
-                Updated : 2 days ago
-            </div>
-            </div>
-          </div>
-      <!--five car end-->
-     <!--six car start-->
-          <div class="col-lg-3 col-md-6">
-            <div class="card" style="width: 18rem;">
-            <img src="assets/corejava.jpg" class="card-img-top" alt="core java">
-            <div class="card-body">
-              <h5 class="card-title">Core Java</h5>
-              <p class="card-text">This course contains core java concepts, interview preparation, case studies and 5
-                projects.</p>
-                <p><strong>Price :</strong><del>Rs.5999</del><span class="bg-inf0 p-1">Rs.1999</span></p>
-              <a href="#" class="btn btn-primary">Buy</a>
-            </div>
-            <div class="card-footer text-body-secondary">
-                Updated : 2 days ago
-            </div>
-            </div>
-          </div>
-
-          </div>
-     <!--six car end-->
-
-
       </section>
-      <!--course section end-->
+  </main>
 
-    </main>
-    <!--Main content end-->
-
-   <!-- footer starts -->
-    <footer class="footer bg-dark py-3 text-center">
+   <footer class="footer bg-dark py-3 text-center">
         <div class="container">
             <span class="text-white"> Copyright Smart Programming </span>
             <div class="py-3">
@@ -193,4 +136,3 @@
             </div>
         </div>
     </footer>
-    <!-- footer ends -->

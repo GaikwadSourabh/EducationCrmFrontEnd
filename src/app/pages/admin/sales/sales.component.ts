@@ -33,7 +33,6 @@ export class SalesComponent implements OnInit{
   {
     this.sellsService.getEachEmpSales().subscribe(data=>{
      this.employee=data;
-     console.log(this.employee)
     })
   }
 

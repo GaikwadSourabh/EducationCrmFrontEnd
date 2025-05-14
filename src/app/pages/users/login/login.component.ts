@@ -11,16 +11,24 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-
+ errorMsg='';
   constructor(private loginService:LoginService,private router:Router){}
   login={email:'',password:''};
 
   onLogin()
   {
-   this.loginService.login(this.login.email,this.login.password).subscribe((data)=>{
-    console.log(data)
+   this.loginService.login(this.login.email,this.login.password).subscribe({
+    next:(res)=>{
       alert('Login Saved successfully')
       this.router.navigate(['/user-layout'])
+    },error:(err)=>{
+      if (err.status === 403 || err.status === 401) {
+        this.errorMsg = err.error.message;
+      } else {
+        this.errorMsg = 'An unexpected error occurred.';
+      }
+    }
    })
+
   }
 }

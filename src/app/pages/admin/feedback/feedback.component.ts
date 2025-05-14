@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Feedback } from '../modules/feedback.model';
 import { FeedbackService } from '../services/feedback.service';
 import Modal from 'bootstrap/js/dist/modal';
+import { Course } from '../modules/course.model';
 
 @Component({
   selector: 'app-feedback',
@@ -16,11 +17,15 @@ export class FeedbackComponent
 {
   feedback:Feedback[]=[];
   selectedFeedback:any=null;
-  currentPage:number=0;
-  pageSize:number=5;
+
   totalPageArray:number[]=[];
   pagination={hasPrevious:false,hasNext:false};
   showModel:boolean=true;
+
+    courses:Course[]=[];
+    page: number = 1;
+    limit:number = 5;
+    totalCourses:number = 0;
 
   constructor(private feedbackService:FeedbackService){}
 
@@ -31,20 +36,20 @@ export class FeedbackComponent
 
   fetchFeedback()
   {
-    this.feedbackService.findAll(this.currentPage,this.pageSize).subscribe((res:any)=>{
+    this.feedbackService.findAll(this.page,this.limit).subscribe((res:any)=>{
       this.feedback=res.data;
-      this.totalPageArray=Array.from({length:res.totalPages},(_,i)=>i);
-      this.pagination={
-        hasPrevious:res.number > 0,
-        hasNext:res.number < res.totalPages-1
-      };
+      this.totalCourses=res.total;
     });
   }
 
-  changePage(page:number)
+  onPageChange(newPage:number)
   {
-    this.currentPage=page;
+    this.page=newPage;
     this.fetchFeedback();
+  }
+
+  totalPages():number[]{
+    return Array(Math.ceil(this.totalCourses/this.limit)).fill(0).map((_, i)=> i+1);
   }
 
   openModal(feedback:any)
@@ -61,8 +66,4 @@ export class FeedbackComponent
       this.showModel=false;
     })
   }
-
- 
-
-
 }

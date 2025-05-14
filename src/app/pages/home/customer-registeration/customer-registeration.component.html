@@ -1,0 +1,52 @@
+<div class="container mt-5" style="width: 500px;">
+  <div class="form-bg">
+    <h2 class="text-center mb-4">Registration Form</h2>
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input formControlName="name" class="form-control" type="text" placeholder="Enter your name" />
+        <div class="text-danger" *ngIf="registrationForm.get('name')?.touched && registrationForm.get('name')?.invalid">
+          Name is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input formControlName="email" class="form-control" type="email" placeholder="Enter your email" />
+        <div class="text-danger" *ngIf="registrationForm.get('email')?.touched && registrationForm.get('email')?.invalid">
+          Valid email is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Phone No</label>
+        <input formControlName="phoneno" class="form-control" type="text" placeholder="Enter your phone number" />
+        <div class="text-danger" *ngIf="registrationForm.get('phoneno')?.touched && registrationForm.get('phoneno')?.invalid">
+          Valid 10-digit phone number is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input formControlName="password" class="form-control" type="password" placeholder="Enter your password" />
+        <div class="text-danger" *ngIf="registrationForm.get('password')?.touched && registrationForm.get('password')?.invalid">
+          Password (min 6 chars) is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">City</label>
+        <input formControlName="city" class="form-control" type="text" placeholder="Enter your city" />
+        <div class="text-danger" *ngIf="registrationForm.get('city')?.touched && registrationForm.get('city')?.invalid">
+          City is required
+        </div>
+      </div>
+
+      <button class="btn btn-primary w-100" type="submit">Register</button>
+    </form>
+    <div class="text-center mt-3">
+      <span>Already registered?</span>
+      <a routerLink="/customerLogin" routerLinkActive="active" router class="text-primary text-decoration-underline">Click here to sign in</a>
+    </div>
+  </div>
+</div>

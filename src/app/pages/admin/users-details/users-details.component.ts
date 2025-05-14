@@ -4,6 +4,8 @@ import { Purchase } from '../../users/modules/purchase.modules';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { CourseService } from '../services/course.service';
+import { Course } from '../modules/course.model';
 
 @Component({
   selector: 'app-users-details',
@@ -18,8 +20,8 @@ export class UsersDetailsComponent implements OnInit
   courseDetails: any[] = [];
   email:string=''
   name:string=''
-
-  constructor(private sellService:SellService,private route:ActivatedRoute){}
+  course: Course | null = null;
+  constructor(private sellService:SellService,private route:ActivatedRoute,private courseService:CourseService){}
 
   ngOnInit(): void {
 
@@ -36,6 +38,13 @@ export class UsersDetailsComponent implements OnInit
   {
     return this.sellService.getUsersEmailDetails(email).subscribe((data)=>{
         this.courseDetails=data;
+
+         this.courseDetails.forEach((course: any) => {
+         this.courseService.getImageByName(course.course_name).subscribe((imgData: Course) => {
+         course.image = imgData.image;
+
+      });
     })
+  })
   }
 }
